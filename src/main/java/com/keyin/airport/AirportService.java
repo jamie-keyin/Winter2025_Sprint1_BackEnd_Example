@@ -21,6 +21,10 @@ public class AirportService {
         return optionalAirport.orElse(null);
     }
 
+    public Airport findByName(String name) {
+        return airportRepository.findByName(name);
+    }
+
     public Airport createAirport(Airport newAirport) {
         return airportRepository.save(newAirport);
     }

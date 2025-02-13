@@ -3,6 +3,7 @@ package com.keyin.airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,19 @@ public class AirportController {
     @GetMapping("/airport/{id}")
     public Airport getAirportByID(@PathVariable long id) {
         return airportService.findAirportById(id);
+    }
+
+    @GetMapping("/airport_search")
+    public List<Airport> searchAirports(@RequestParam(value = "name", required = false) String name) {
+        List<Airport> results = new ArrayList<Airport>();
+
+        Airport airport = airportService.findByName(name);
+
+        if (airport != null) {
+            results.add(airport);
+        }
+
+        return results;
     }
 
     @PostMapping("/airport")
